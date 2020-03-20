@@ -1,2 +1,4 @@
 .vscode/
 gujtd_env
+ui/__pycache__
+media/
