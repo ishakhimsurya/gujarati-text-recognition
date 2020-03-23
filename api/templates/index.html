@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gujrati AI</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="static/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+    <div class="main">
+        <!-- Sign up form -->
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Gujarati AI</h2>
+                    <form action="/upload" method="POST" enctype="multipart/form-data" class="register-form" id="register-form">
+                        
+                        <!-- shows selected image -->
+                        <img id="blah" src="#" alt="Upload Image" />
+
+                        <!-- input for selecting image -->
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="image" id="image" onchange="readURL(this);">
+                            </div>
+                        </div>
+                        
+                        <!-- submit button -->
+                        <div class="form-group form-button">
+                            <input type="submit" name="identify" id="signup" class="form-submit" value="Identify"/>
+                        </div>
+                    </form>
+                    <div><h2>{{ answer }}</h2></div>
+                </div>
+                <div class="signup-image">
+                    <figure><img src="static/images/signup-image.jpg" alt="sign up image"></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(200)
+                        .height(200);
+                };
+                console.log("hiii");
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script src="static/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

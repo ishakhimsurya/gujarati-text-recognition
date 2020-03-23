@@ -1,4 +1,5 @@
 .vscode/
-gujtd_env
-ui/__pycache__
-media/
+api/gujtd_env
+api/model/*.sav
+api/__pycache__
+api/media/uploads/*.png
