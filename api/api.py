@@ -172,3 +172,30 @@ def predict():
  
 if __name__ == "__main__":
    app.run(threaded=False)
+
+
+def create_alientest_data():
+    alien_test = []
+
+
+    for i in os.listdir(test_path):
+        img_loc = test_path+ "//" + i
+        print(img_loc)
+        try:
+            image = cv2.imread(img_loc)
+            image = cv2.bitwise_not(image) # Invert
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Graysclae
+            #image = cv2.fastNlMeansDenoising(gray,None,9,13)
+            resized_img = cv2.resize(gray, (150, 150), interpolation = cv2.INTER_AREA)
+            image=Image.fromarray(resized_img)
+            imageBox = image.getbbox()
+            cropped=image.crop(imageBox)
+            cropped.save("temp.png")
+            # cropped.save()
+            img =cv2.cvtColor(np.array(cropped), cv2.COLOR_RGB2BGR)
+            img = cv2.imread("temp.png",cv2.IMREAD_GRAYSCALE)
+            img = cv2.resize(img, (IMG_SIZE,IMG_SIZE))
+            alien_test.append([np.array(img),np.array("NULL")])
+        except:
+            print("Error at :"+ img_loc)
+    return alien_test

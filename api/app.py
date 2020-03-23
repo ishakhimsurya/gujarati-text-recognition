@@ -5,6 +5,7 @@ import traceback
 import pickle
 import cv2
 import os
+from PIL import Image
 
 IMG_SIZE = 150
 
@@ -95,11 +96,11 @@ def labelling(result):
         elif answer == 39:
           return("v")
         elif answer == 40:
-          return("S")
-        elif answer == 41:
-          return("s")
-        elif answer == 42:
           return("sh")
+        elif answer == 41:
+          return("SH")
+        elif answer == 42:
+          return("s")
         elif answer == 43:
           return("h")
         elif answer == 44:
@@ -114,7 +115,7 @@ def labelling(result):
 
 # App definition
 app = Flask(__name__, template_folder='templates')
-app.config["IMAGE_UPLOADS"] = "C:/Users/Jay S Khatri/Desktop/gujarati-text-recognition/api/media/uploads"
+app.config["IMAGE_UPLOADS"] = "path_to_upload_folder"#G:/SGP/gujarati-text-recognition/api/media/uploads
 
 
 # importing models
@@ -132,22 +133,34 @@ def upload_image():
         path_to_image = app.config["IMAGE_UPLOADS"] + image.filename
         image.save(os.path.join(path_to_image))
         print("Image saved")
-        try:
-          if path_to_image != None: 
-              img = cv2.imread(path_to_image,cv2.IMREAD_GRAYSCALE)
-              img = cv2.resize(img, (IMG_SIZE,IMG_SIZE))
-              predict_this = np.array(img).reshape(-1,IMG_SIZE,IMG_SIZE,1)
-              # plt.imshow(img, cmap='gray')
-              array = classifier.predict(predict_this)
-              labelling(array)
-              print('zzzzzzzzzz')
+        # try:
+        if path_to_image != None: 
+            image = cv2.imread(path_to_image)
+            image = cv2.bitwise_not(image) # Invert
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Graysclae
+            #image = cv2.fastNlMeansDenoising(gray,None,9,13)
+            resized_img = cv2.resize(gray, (150, 150), interpolation = cv2.INTER_AREA)
+            image=Image.fromarray(resized_img)
+            imageBox = image.getbbox()
+            cropped=image.crop(imageBox)
+            cropped.save("temp.png")
+            # cropped.save()
+            img =cv2.cvtColor(np.array(cropped), cv2.COLOR_RGB2BGR)
+            img = cv2.imread("temp.png",cv2.IMREAD_GRAYSCALE)
+            img = cv2.resize(img, (IMG_SIZE,IMG_SIZE))
+            # alien_test.append([np.array(img),np.array("NULL")])
+            predict_this = np.array(img).reshape(-1,IMG_SIZE,IMG_SIZE,1)
+            # plt.imshow(img, cmap='gray')
+            array = classifier.predict(predict_this)
+            labelling(array)
+            print('zzzzzzzzzz')
           # return jsonify({
           #     "prediction1":str(labelling(array))
           # })
-          return render_template("index.html", answer=labelling(array))
-        except:
-          print("exept block")
-          return redirect(request.url)
+            return render_template("index.html", answer=labelling(array))
+        # except:
+        #   print("exept block")
+        #   return redirect(request.url)
         # return render_template("index.html", answer='gh')
   return render_template("index.html")
 

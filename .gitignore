@@ -1,5 +1,7 @@
 .vscode/
+api/api
 api/gujtd_env
 api/model/*.sav
+api/model/*.h5
 api/__pycache__
-api/media/uploads/*.png
+api/media/uploads/
