@@ -1,70 +1,236 @@
-<!DOCTYPE html>
-<html lang="en" style="overflow: hidden;">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gujrati AI</title>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:500&display=swap" rel="stylesheet"> 
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="static/fonts/material-icon/css/material-design-iconic-font.min.css">
+        
+        
 
-    <!-- Main css -->
-    <link rel="stylesheet" href="static/css/style.css">
-</head>
-<body>
+    </head>
+    <body class="container">
 
-    <div class="main">
-        <!-- Sign up form -->
-        <div class="container">
-            <div class="signup-content">
-                <div class="signup-form">
-                    <h2 class="form-title">Gujarati AI</h2>
-                    <form action="/upload" method="POST" enctype="multipart/form-data" class="register-form" id="register-form">
-                        
-                        <!-- shows selected image -->
-                        <img id="blah" src="#" alt="Upload Image" />
-
-                        <!-- input for selecting image -->
-                        <div class="form-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image" id="image" onchange="readURL(this);">
-                            </div>
-                        </div>
-                        
-                        <!-- submit button -->
-                        <div class="form-group form-button">
-                            <input type="submit" name="identify" id="signup" class="form-submit" value="Identify"/>
-                        </div>
-                    </form>
-                    <div><h2>{{ answer }}</h2></div>
+        <div class="headerCon">
+            <div class="hello-bar"><p class="hello-text">Brought to you by The Frontiers</p></div>
+            <div class="header">
+                <div class="titleCon">
+                    <h1 class="title">The Frontiers</h1>
                 </div>
-                <div class="signup-image">
-                    <figure><img src="static/images/signup-image.jpg" alt="sign up image"></figure>
+                <nav class="navbar">
+                        <li class="nav-item border-hover"><a href="#aboutProject">About project</a></li>
+                        <li class="nav-item border-hover"><a href="#prediction">Prediction</a></li>
+                        <li class="nav-item border-hover"><a href="#ganModel">Gan Model</a></li>
+                        <li class="nav-item border-hover"><a href="#aboutUs">About Us</a></li>
+                </nav>
+             </div>
+        </div>
+        
+        <div class="body-container">
+            <div class="content-box"  id="aboutProject">
+                <div class="holder">
+                    <h1 class="title title1">Gujarati character recognition System</h1>
+                    <p class="content"> The project is aimed to develop an environment that can detect Gujarati text from images which can be handwritten or printed text. 
+                        The project is being developed using different machine learning techniques like Optical Character Recognition (OCR). 
+                        Project also includes the process of gathering data of handwritten Gujarati script that has 12 vowels and 34 consonants
+                        and creating a dataset that can be used to feed the machine learning model.</p>
+                </div>
+                <div class="ill-con">
+                    <img class="ill"src="static/images/working man.jpg" alt="working male progremmer" draggable="false">
                 </div>
             </div>
+
+        <div class="prediction-con" id="prediction">
+            <div class="content-box content-box2">
+                <div class="ill-con ill-con2">
+                    <img class="ill"src="static/images/predict.jpg" alt="two person predicting something" draggable="false">
+                </div>
+                <div class="holder holder2">
+                    <h1 class="title pre-title">Check prediction</h1>
+                    <p class="content">Select image of any gujarati isolated character from your device to check the prediction</p>
+                    <div class="inputblk">
+            <!---input file -->
+                    <form class="form" action="/upload" method="POST" enctype="multipart/form-data">
+                        <div class="file-uploader">
+                            <div class="file-status"></div>
+                            <input type="file" id="file" name="image" id="image" />
+                            <label for="file" class="btn-1">Choose Image</label>
+                        </div>
+                        <div class="submit-btn">
+                            <input type="submit" class="submit " value="Predict" >
+                        </div>
+
+                    </form>
+                    </div>
+                </div>
+            </div>  
+
+            <div class="prediction-board">
+                <div class="pre-img-holder">
+                    <div class="pre-img-container">
+                        <img src="#" id="imgshow" alt="" onerror="this.src='static/images/k.png'">
+                    </div>
+                </div>   
+
+                <div class="segmentation-line"><span> </span></div>
+
+                <div class="rate-blk-holder">
+                    <div class="rate-blk">
+                        <div class="rate-title">Prediction</div>
+                        <div class="prediction-rate">{{ answer }}</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
 
-    <!-- JS -->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
+        <div class="gan-model-container" id="ganModel">
+            <h1 class="gantitle">Gan Model Research</h1>
+            <div class="title-holder">
+                <div class="abs-title-block"> </div>   
+            </div>
+
+            <div class="content-box gan-info-container">
+                <div class="holder">
+                    <h1 class="title title1">Generative Adversarial Network model (GAN)</h1>
+                    <p class="content"> Generative Adversarial Networks, or GANs for short, are an approach to generative 
+                        modeling using deep learning methods, such as convolutional neural networks.
+                        Generative modeling is an unsupervised learning task in machine learning that
+                         involves automatically discovering and learning the regularities or patterns in input data in
+                          such a way that the model can be used to generate or output new examples that plausibly could have been 
+                          drawn from the original dataset.</p>
+
+                        <div class="readmore-btn"><a href="https://en.wikipedia.org/wiki/Generative_adversarial_network" target="_blank">Read more</a></div>
+                </div>
+
+                <div class="ill-con">
+                    <img class="ill"src="static/images/working lady.jpg" alt="working lady progremmer" draggable="false">
+                </div>
+            </div>
+
+                <div class="slider-holder">
+                    <h2 class="slider-title">Images Generated By GAN model</h2>
+                    <div class="slick-slider">	
+                        <div class="slide"><img id="slick-img" src="static/images/ganimages/1.png"></div>
+                        <div class="slide"><img id="slick-img" src="static/images/ganimages/2.png"></div>
+                        <div class="slide"><img id="slick-img" src="static/images/ganimages/3.png"></div>
+                        <div class="slide"><img id="slick-img" src="static/images/ganimages/4.png"></div>
+                        <div class="slide"><img id="slick-img" src="static/images/ganimages/5.png"></div>
+                    </div>
+            </div>
+
+        </div>
+
+
+
+        </div>
+
+        <div class="aboutus-container" id="aboutUs">
+
+            <h1 class="team-title">#TheTeamMembers</h1>
+
+            <div class="about-info-holder">
+                <div class="about-block">
+                    <div class="my-img">
+                        <img src="static/images/myimage/me1.jpg" alt="">
+                    </div>
+                    <div class="info-block">
+                        <div class="name-holder">Naimish Ghevariya</div>
+                        <div class="status">A disloper : combination of designer and developer.</div>
+                    </div>
+                </div>
+                <div class="about-block">
+                    <div class="my-img">
+                        <img src="static/images/myimage/me4.jpg" alt="">
+                    </div>
+                    <div class="info-block">
+                        <div class="name-holder">Isha Khimsurya</div>
+                        <div class="status">Owner of stong motivation and will power.</div>
+                    </div>
+                </div>
+                <div class="about-block">
+                    <div class="my-img">
+                        <img src="static/images/myimage/me3.jpg" alt="">
+                    </div>
+                    <div class="info-block">
+                        <div class="name-holder">Riya Intwala</div>
+                        <div class="status">Master of maths and myths.</div>
+                    </div>
+                </div>
+                <div class="about-block">
+                    <div class="my-img">
+                        <img src="static/images/myimage/me2.jpg" alt="">
+                    </div>
+                    <div class="info-block">
+                        <div class="name-holder">Jay Khatri</div>
+                        <div class="status">Perfectly Imperfect coder.</div>
+                    </div>
+                </div>
+
+            </div> 
+            <div class="footer">
+                <h1 class="footer-text">The Frontiers</h1>
+            </div>
+            
+        </div>
+    </body>
+
     <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+        var filename;
+        $('document').ready(function () {
+                $("#file").change(function () {
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#imgshow').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    }       
+                }); 
+        });
+        $('document').ready(function () {
+                $("#file").change(function () {
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#imgshow').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    }       
+                }); 
+        });
 
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result)
-                        .width(200)
-                        .height(200);
-                };
-                console.log("hiii");
+        $(document).ready(function(){
+            $('input[type="file"]').change(function(e){
+                var fileName = e.target.files[0].name;
+                var str = fileName + ' selected.';
+                $( ".file-status" ).html( str );
+            });
+        }); 
 
-                reader.readAsDataURL(input.files[0]);
+        $(document).ready(function(){
+            $('.slick-slider').slick({
+                arrows:false,
+                dots:false,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay:true,
+                adaptiveHeight: true,
+                autoplaySpeed:2000,
+                infinite: true,
+                responsive: [
+                {
+                breakpoint: 950,
+                settings: {
+                dots:false,
+                }
             }
-        }
+        ]
+            });
+        });
     </script>
-    <script src="static/js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
