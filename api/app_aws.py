@@ -115,7 +115,7 @@ def labelling(result):
 
 # App definition
 app = Flask(__name__, template_folder='templates')
-app.config["IMAGE_UPLOADS"] = "C:/Users/Jay S Khatri/Desktop/EXTRAS/gujarati-text-recognition/api/media/uploads/"#G:/SGP/gujarati-text-recognition/api/media/uploads
+app.config["IMAGE_UPLOADS"] = "media/uploads"#G:/SGP/gujarati-text-recognition/api/media/uploads
 
 
 # importing models
@@ -127,12 +127,9 @@ with open('model/finalized_model.sav', 'rb') as f:
 def upload_image():
   if request.method == "POST":
     if request.files:
-    
         image = request.files["image"]
-        print(image)
         path_to_image = app.config["IMAGE_UPLOADS"] + image.filename
         image.save(os.path.join(path_to_image))
-        print("Image saved")
         try:
           if path_to_image != None: 
               image = cv2.imread(path_to_image)
@@ -153,20 +150,13 @@ def upload_image():
               # plt.imshow(img, cmap='gray')
               array = classifier.predict(predict_this)
               labelling(array)
-              print('zzzzzzzzzz')
               return render_template("index.html", answer=labelling(array))
         except:
           print("exept block")
           return redirect(request.url)
         # return render_template("index.html", answer='k')
   return render_template("index.html")
-
-
-@app.route('/success')
-def welcome():
-  image = request.args['image1']
-  return render_template('saved.html')
  
  
 if __name__ == "__main__":
-   app.run(threaded=False)
+   app.run(host="0.0.0.0", port=8080, threaded=False)
