@@ -54,7 +54,7 @@
                     <p class="content">Select image of any gujarati isolated character from your device to check the prediction</p>
                     <div class="inputblk">
                         <!---input file --> 
-                        <form class="form" action="/upload" method="POST" enctype="multipart/form-data">
+                        <form class="form" action="/upload#output" method="POST" enctype="multipart/form-data">
                             <div class="file-uploader">
                                 <div class="file-status"></div>
                                 <input type="file" id="file" name="image" />
@@ -68,7 +68,7 @@
                 </div>
             </div>  
 
-            <div class="prediction-board">
+            <div class="prediction-board" id="output">
                 <div class="pre-img-holder">
                     <div class="pre-img-container">
                         <img src="#" id="imgshow" alt="" onerror="this.src='static/images/k.png'">
