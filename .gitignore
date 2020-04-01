@@ -1,5 +1,5 @@
 .vscode/
-api/api
+api/api/
 api/gujtd_env
 api/model/*.sav
 api/model/*.h5

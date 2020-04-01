@@ -115,7 +115,7 @@ def labelling(result):
 
 # App definition
 app = Flask(__name__, template_folder='templates')
-app.config["IMAGE_UPLOADS"] = "C:/Users/Jay S Khatri/Desktop/EXTRAS/gujarati-text-recognition/api/media/uploads"#G:/SGP/gujarati-text-recognition/api/media/uploads
+app.config["IMAGE_UPLOADS"] = "C:/Users/Jay S Khatri/Desktop/EXTRAS/gujarati-text-recognition/api/media/uploads/"#G:/SGP/gujarati-text-recognition/api/media/uploads
 
 
 # importing models
