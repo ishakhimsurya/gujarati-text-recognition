@@ -15,7 +15,7 @@
     </head>
     <body class="container">
 
-        <div class="headerCon">
+        <div class="headerCon" id="headerCon">
             <div class="hello-bar"><p class="hello-text">Brought to you by The Frontiers</p></div>
             <div class="header">
                 <div class="titleCon">
@@ -31,7 +31,7 @@
         </div>
         
         <div class="body-container">
-            <div class="content-box"  id="aboutProject">
+            <div class="content-box" id="aboutProject">
                 <div class="holder">
                     <h1 class="title title1">Gujarati character recognition System</h1>
                     <p class="content"> The project is aimed to develop an environment that can detect Gujarati text from images which can be handwritten or printed text. 
@@ -53,23 +53,22 @@
                     <h1 class="title pre-title">Check prediction</h1>
                     <p class="content">Select image of any gujarati isolated character from your device to check the prediction</p>
                     <div class="inputblk">
-            <!---input file -->
-                    <form class="form" action="/upload" method="POST" enctype="multipart/form-data">
-                        <div class="file-uploader">
-                            <div class="file-status"></div>
-                            <input type="file" id="file" name="image" id="image" />
-                            <label for="file" class="btn-1">Choose Image</label>
-                        </div>
-                        <div class="submit-btn">
-                            <input type="submit" class="submit " value="Predict" >
-                        </div>
-
-                    </form>
+                        <!---input file --> 
+                        <form class="form" action="/upload#output" method="POST" enctype="multipart/form-data">
+                            <div class="file-uploader">
+                                <div class="file-status"></div>
+                                <input type="file" id="file" name="image" />
+                                <label for="file" class="btn-1">Choose Image</label>
+                            </div>
+                            <div class="submit-btn">
+                                <input type="submit" class="submit " value="Predict" onclick="" >  <!--- pass your function in onclick here to predict -->
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>  
 
-            <div class="prediction-board">
+            <div class="prediction-board" id="output">
                 <div class="pre-img-holder">
                     <div class="pre-img-container">
                         <img src="#" id="imgshow" alt="" onerror="this.src='static/images/k.png'">
@@ -80,7 +79,7 @@
 
                 <div class="rate-blk-holder">
                     <div class="rate-blk">
-                        <div class="rate-title">Prediction</div>
+                        <div class="rate-title">Predicted output</div>
                         <div class="prediction-rate">{{ answer }}</div>
                     </div>
                 </div>
@@ -89,7 +88,7 @@
         </div>
 
         <div class="gan-model-container" id="ganModel">
-            <h1 class="gantitle">Gan Model Research</h1>
+            <h1 class="gantitle">GAN Model Research</h1>
             <div class="title-holder">
                 <div class="abs-title-block"> </div>   
             </div>
@@ -149,7 +148,7 @@
                     </div>
                     <div class="info-block">
                         <div class="name-holder">Isha Khimsurya</div>
-                        <div class="status">Owner of stong motivation and will power.</div>
+                        <div class="status">Owner of strong motivation and will power.</div>
                     </div>
                 </div>
                 <div class="about-block">
@@ -173,25 +172,13 @@
 
             </div> 
             <div class="footer">
-                <h1 class="footer-text">The Frontiers</h1>
+                <h2 class="footer-text">&copy The Frontiers</h2>
             </div>
             
         </div>
     </body>
 
-    <script>
-        var filename;
-        $('document').ready(function () {
-                $("#file").change(function () {
-                    if (this.files && this.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            $('#imgshow').attr('src', e.target.result);
-                        }
-                        reader.readAsDataURL(this.files[0]);
-                    }       
-                }); 
-        });
+    <script language="javascript">
         $('document').ready(function () {
                 $("#file").change(function () {
                     if (this.files && this.files[0]) {
@@ -232,5 +219,36 @@
         ]
             });
         });
+
+        $(document).ready(function($){
+            
+
+        var $root = $('html, body');
+        $('a[href^="#"]').click(function() {
+            var href = $.attr(this, 'href');
+            $root.animate({
+                scrollTop: $(href).offset().top                    
+            }, 800, function () {
+                window.location.hash = href;
+            });
+        return false;
+    });
+ 
+})
+
+
+
+var height = $("#headerCon").height(); 
+        height = height * -1 -20;
+        var shiftWindow = function() {
+        scrollBy(0,height)
+        };
+        if (location.hash) {
+        setTimeout(function(){
+        shiftWindow();
+        },1);
+        };
+        window.addEventListener("hashchange", shiftWindow);
+
     </script>
 </html>
