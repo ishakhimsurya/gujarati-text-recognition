@@ -5,3 +5,4 @@ api/model/*.sav
 api/model/*.h5
 api/__pycache__
 api/media/uploads/
+predictImg
